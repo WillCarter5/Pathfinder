@@ -43,7 +43,7 @@ pip freeze > requirements.txt
 
 ## Makefile
 
-* `make demo`: demos pathfinder's ability to correctly find the shortest path between Alumni Hall and Hesburgh Library. After running the program, a map will appear in the `pathfinder` directory.
+* `make demo`: demos pathfinder's ability to correctly find the shortest path between Alumni Hall and Hesburgh Library. After running the program, a map will appear in the `out` directory.
 * `make test`: runs the test script for pathfinder (pathfinder_test.py)
 
 ---
