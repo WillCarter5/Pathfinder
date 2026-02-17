@@ -4,40 +4,35 @@
 
 I made this project for my Data Structures and Algorithm's mini project. Afterwards, I learned and implemented `pip` and `venv`. I also made Wikispeedia as part of this project, which is also on my GitHub.
 
-## Setup
-
-To set up the project using `pip` + `venv`:
-
-1. **Create a virtual environment**
-
+## Initial Setup
 ```bash
-python -m venv .venv
-````
+# Create virtual environment
+python3 -m venv .venv
 
-2. **Activate the virtual environment**
-
-* macOS / Linux
-
-```bash
+# Activate
+# macOS / Linux
 source .venv/bin/activate
-```
 
-* Windows
+# Install dependencies
+pip install --upgrade pip
+pip install geopandas networkx matplotlib shapely contextily
 
-```powershell
-.venv\Scripts\activate
-```
-
-3. **Install dependencies**
-
-```bash
-pip install geopandas networkx matplotlib shapely
-```
-
-4. **Freeze dependencies for reproducibility**
-
-```bash
+# Save dependencies
 pip freeze > requirements.txt
+```
+
+## Returning Setup
+```bash
+# Activate
+# macOS / Linux
+source .venv/bin/activate
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+# Windows CMD
+.venv\Scripts\activate.bat
+
+# Optional: reinstall all packages exactly as in requirements.txt
+pip install --force-reinstall -r requirements.txt
 ```
 
 ## Makefile
@@ -62,7 +57,7 @@ pip freeze > requirements.txt
 ## Files
 
 Two datasets are available for use. 
-- `nd_paths.geojson` covers main campus
+- `nd_paths.geojson` covers main campus (SUGGESTED! MUCH FASTER)
 - `nd_paths_big.geojson` covers main campus as well as St. Mary's College and Holy Cross College.
 
 ---

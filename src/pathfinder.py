@@ -8,6 +8,7 @@ import argparse
 import geopandas as gpd
 import networkx as nx
 import matplotlib.pyplot as plt
+import contextily as ctx
 
 def read_pois(filename):
 	pois = dict()
@@ -138,7 +139,7 @@ def main():
 	print(f"Length: {length}")
 	
 	# MPL output
-	_, ax = plt.subplots(figsize=(10,10))
+	_, ax = plt.subplots(figsize=(10,10), dpi=200)
 
 	# Plot all edges
 	for u, v in G.edges:
@@ -150,6 +151,8 @@ def main():
 	path_x = [node[0] for node in path]
 	path_y = [node[1] for node in path]
 	ax.plot(path_x, path_y, color='red', linewidth=2, label='Shortest Path')
+
+	ctx.add_basemap(ax, crs="EPSG:4326", source=ctx.providers.OpenStreetMap.Mapnik, zoom=17)
 
 	# Add text
 	ax.set_xlabel("Longitude")
