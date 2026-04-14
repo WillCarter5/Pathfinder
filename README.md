@@ -46,12 +46,12 @@ pip install --force-reinstall -r requirements.txt
 
 ## Running the Command
 
-- The command takes the form: `./pathfinder.py [-d DATA_FILE] [-o OUTPUT_FILE] [-m MODE] [-s START] [-e END]`.
+- The command takes the form: `./pathfinder [-d DATA_FILE] [-o OUTPUT_FILE] [-m MODE] [-s START] [-e END]`.
 - `mode` supports the string `coord` or a valid path to a Place of Interest (POI) datafile
-  - `man`:      `./pathfinder.py [-d DATA_FILE] [-o OUTPUT_FILE] [-m PATH_TO_POI_FILE] [-s NAMED_LOC_START] [-e NAMED_LOC_END]`
+  - `man`:      `./pathfinder [-d DATA_FILE] [-o OUTPUT_FILE] [-m PATH_TO_POI_FILE] [-s NAMED_LOC_START] [-e NAMED_LOC_END]`
     - Supports the entry of named places of interest.
     - The program expects tab delimited data with place name first, then latitude, then longitude.
-  - `coord`:    `./pathfinder.py [-d DATA_FILE] [-o OUTPUT_FILE] -m coord [-s START_COORD] [-e END_COORD]`
+  - `coord`:    `./pathfinder [-d DATA_FILE] [-o OUTPUT_FILE] -m coord [-s START_COORD] [-e END_COORD]`
     - Supports the entry of coordinate pairs (with latitude first).
   
 ## Files

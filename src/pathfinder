@@ -1,84 +1,17 @@
 #!/usr/bin/env python3
 
-from math import sqrt, radians, sin, cos, sqrt, atan2
-from heapq import heappop, heappush
-
-import os
-import argparse
-
 import geopandas as gpd
 import networkx as nx
 import matplotlib.pyplot as plt
 import contextily as ctx
 
-def read_pois(filename: str, delim: str = '\t'):
-	"""Reads places of interest from filename"""
-	pois = dict()
-	with open(filename) as f:
-		for line in f:
-			(name, lat, lon) = line.split(delim)
-			pois[name] = (float(lat), float(lon))
+from pathfinder import djikstra, nearest_node, haversine, read_pois
+
+if __name__ == "__main__":
+	import os
+	import argparse
 	
-	return pois
-
-def haversine(a, b):
-	"""Calculate the real distance from coordinate a to coordinate b"""
-	lat1, lon1 = a
-	lat2, lon2 = b
-	R = 6371000
-	phi1, phi2 = radians(lat1), radians(lat2)
-	dphi = radians(lat2 - lat1)
-	dlambda = radians(lon2 - lon1)
-	a = sin(dphi/2)**2 + cos(phi1)*cos(phi2)*sin(dlambda/2)**2
-	return 2 * R * atan2(sqrt(a), sqrt(1-a))
-
-def nearest_node(G, point):
-    x, y = point
-    best = None
-    best_dist = float("inf")
-    for node in G.nodes:
-        d = (node[0]-x)**2 + (node[1]-y)**2
-        if d < best_dist:
-            best_dist = d
-            best = node
-    return best
-
-
-def djikstra(G, start, end):
-	pq = [(0, start)]
-	dists = {start: 0}
-	prev = {start: None}
-	visited = set()
-
-	while pq:
-		dist, node = heappop(pq)
-
-		if node in visited: continue
-		visited.add(node)
-
-		if node == end: break
-
-		for neighbor, attrs in G[node].items():
-			w = attrs["weight"]
-			new_dist = dist + w
-			if neighbor not in dists or new_dist < dists[neighbor]:
-				dists[neighbor] = new_dist
-				heappush(pq, (new_dist, neighbor))
-				prev[neighbor] = node
-	
-	if end not in dists:
-		return float('inf'), []
-
-	path = []
-	cur = end
-	while cur is not None:
-		path.append(cur)
-		cur = prev[cur]
-
-	return dists[end], path
-
-def main():
-	# Create argparser
+    # Create argparser
 	parser = argparse.ArgumentParser(description="Pathfinder script to process data and find paths.")
 
 	# Arguments
@@ -92,8 +25,8 @@ def main():
 
 	# Parse the arguments
 	args = parser.parse_args()
-
-	# Get data
+	
+    # Get data
 	gdf = gpd.read_file(args.data)
 	gdf = gdf[gdf.geometry.type.isin(["LineString", "MultiLineString"])]
 
@@ -182,6 +115,3 @@ def main():
 	plt.savefig(args.output)
 
 	print(f"Map generated at {args.output}")
-
-if __name__ == "__main__":
-    main()
